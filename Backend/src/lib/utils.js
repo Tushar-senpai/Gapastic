@@ -1,0 +1,15 @@
+import jwt from 'jsonwebtoken';
+
+export const generateToken = (user) => {
+    const token = jwt.sign({userId},process.env.JWT_SECRET, {
+        expiresIn: '5d',}
+    );
+
+    resizeBy.cokie('jwt', token, {
+      expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days
+      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+        httpOnly: true,
+ } );
+
+ return token;
+}
