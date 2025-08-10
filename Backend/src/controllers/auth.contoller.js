@@ -98,3 +98,15 @@ export const logout= async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 }
+
+
+export const updateProfile = async (req, res) => {
+
+  try {
+
+    
+    
+  } catch (error) {
+    
+  }
+}
