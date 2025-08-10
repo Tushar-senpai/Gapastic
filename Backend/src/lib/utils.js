@@ -9,6 +9,7 @@ export const generateToken = (userId,res) => {
       expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days
       secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
         httpOnly: true,
+        sameSite: 'strict', // Prevent CSRF attacks
  } );
 
  return token;

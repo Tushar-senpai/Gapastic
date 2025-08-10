@@ -58,11 +58,43 @@ const User = await user.findOne({ email });
 }
 
 export const login = async (req, res) => {
-  (req, res) => {
-  res.send("login route");}
+  try {
+    const { email , password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+    const User = await user.findOne({ email });
+    if (!User) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+    const isPasswordCorrect = await bcrypt.compare(password, User.password);
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }   
+    generateToken(User._id, res);
+    return res.status(200).json({ 
+      _id: User._id,
+      email: User.email,
+      fullName: User.fullName,
+      profilePicture: User.profilePicture,
+      // token: generateToken(User._id),
+    });
+    
+  } catch (error) {
+    console.error("Error in login:", error.message);
+    console.error(error.stack);
+    return res.status(500).json({ message: error.message });
+    
+  }
 }
 
 export const logout= async (req, res) => {
-  (req, res) => {
-  res.send("login route");}
+  try {
+    res.clearCookie('jwt'); // Clear the cookie
+    return res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.error("Error in logout:", error.message);
+    console.error(error.stack);
+    return res.status(500).json({ message: error.message });
+  }
 }
