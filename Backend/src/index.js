@@ -10,8 +10,12 @@ const PORT = process.env.PORT ;
 
 app.use(express.json());
 
+
+
 app.use ("/api/auth", authRoutes);
 app.use(cookieParser());
+
+
 connectDB()
   .then(() => {
     app.listen(5001, () => {
