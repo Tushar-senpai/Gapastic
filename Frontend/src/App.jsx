@@ -11,6 +11,8 @@ import ProfilePage from './pages/ProfilePage';
 
 const app = () => {
   return(
+
+ 
     <div >
     <Routes>
       <Route path ="/" element={<HomePage/>}/>
